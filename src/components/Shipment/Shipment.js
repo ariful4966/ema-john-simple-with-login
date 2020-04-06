@@ -2,11 +2,31 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import './Shipment.css';
 import { useAuth } from '../Login/useAuth';
+import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 
 const Shipment = () => {
     const { register, handleSubmit, errors } = useForm()
-    const onSubmit = data => { console.log(data) }
     const auth = useAuth();
+    const onSubmit = data => {
+        // TOODO Samad Move this after Payment
+        console.log(auth.user.email);
+        const savedCart = getDatabaseCart();
+        const orderDetails = { email: auth.user.email, cart: savedCart };
+        fetch('http://localhost:4200/placeOreder', {
+            method: 'POST',
+            body: JSON.stringify(orderDetails),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Order Places', data);
+                alert('Successfully Place Your Order'+data._id)
+                processOrder();
+            })
+    }
+
 
 
     return (
