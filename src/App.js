@@ -1,5 +1,5 @@
 import React from 'react';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/Header/Header';
 import Shop from './components/Shop/Shop';
@@ -35,9 +35,7 @@ function App() {
                         <Route path="/inventory">
                             <Inventory></Inventory>
                         </Route>
-                        <Route exact path="/">
-                            <Shop></Shop>
-                        </Route>
+                        
                         <Route path="/product/:productKey">
                             <ProductDetail></ProductDetail>
                         </Route>
@@ -47,6 +45,9 @@ function App() {
                         <PrivateRoute path="/Shipment">
                             <Shipment></Shipment>
                         </PrivateRoute>
+                        <Route exact path="/">
+                            <Shop></Shop>
+                        </Route>
                         <Route path="*">
                             <NotFound></NotFound>
                         </Route>
